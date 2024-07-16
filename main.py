@@ -93,7 +93,7 @@ def main():
     df2.Combined = pd.Categorical(df2.Combined, categories)
     df2=df2.sort_values('Combined', ignore_index=True)
 
-    ########  PREDICTION 3
+    ######## PREDICTION 3
 
     my_prediction3 = pdt.Prediction(df)
     df3 = my_prediction3.mean_std()
@@ -495,8 +495,7 @@ if __name__ == '__main__':
 ##################################################################################################################################
 ### My final notes
 
-## Convert this to 'main' module - refactor class Simulation() TODO
-## Add to Github repo    
+## Convert this to 'main' module - create and refactor class Simulation() TODO
 ## Predicción() - OJO, normal distribution with those std gives some negative numbers for predicted calls! - some reserved slots become a negative number!
 
 ##################################################################################################################################
