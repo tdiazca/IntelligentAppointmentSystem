@@ -48,7 +48,7 @@ def main():
     of the month that they want to generate a simulated appointment shcedule for."""
     
     #datasetpath = input("Please, enter path to training dataset 'historico_llamadas.xlsx': ") # C:\Users\teresa.diaz.calvo\source\repos\trainingpython\Data_ejercicio_final_python_training\historico_llamadas.xlsx
-    datasetpath = r'C:\Users\teresa.diaz.calvo\source\repos\trainingpython\Data_ejercicio_final_python_training\historico_llamadas.xlsx'
+    datasetpath = r'C:\Users\teresa.diaz.calvo\source\repos\trainingpython\IntelligentAppointmentSystem\historico_llamadas.xlsx'
     
     #df = pd.read_csv(contrato_factura_datasetpath, sep=';', decimal='.')
     df = pd.read_excel(datasetpath, sheet_name='Sheet1', decimal='.')
