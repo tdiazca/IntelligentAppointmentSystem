@@ -1,4 +1,4 @@
-# ## 'Intelligent appointment system for a health clinic'
+# ## 'Intelligent appointment system for a health clinic' ##
 
 # This training project creates a simple intelligent appointment system for a health clinic. 
 # Currently, the method followed to schedule patient appointments is a manual and suboptimal process. 
