@@ -59,7 +59,7 @@ def main():
     ## Step 1: We will count how many calls there are from each type of client on each date in the call history.
     ##  We will find the mean and standard deviation for each type of client and for each day of the week.
 
-    ###### PREDICTION 1
+    ###### PREDICTION  WEEK 1
 
     categories=['P1_Monday','P2_Monday','P3_Monday','P1_Tuesday','P2_Tuesday','P3_Tuesday','P1_Wednesday','P2_Wednesday',
                                                             'P3_Wednesday','P1_Thursday','P2_Thursday','P3_Thursday','P1_Friday','P2_Friday','P3_Friday','P1_Saturday',
@@ -79,7 +79,7 @@ def main():
     df1.Combined = pd.Categorical(df1.Combined, categories)
     df1=df1.sort_values('Combined', ignore_index=True)
 
-    ####### PREDICTION 2
+    ####### PREDICTION WEEK 2
 
     my_prediction2 = pdt.Prediction(df)
     df2 = my_prediction2.mean_std()
@@ -93,7 +93,7 @@ def main():
     df2.Combined = pd.Categorical(df2.Combined, categories)
     df2=df2.sort_values('Combined', ignore_index=True)
 
-    ########  PREDICTION 3
+    ######## PREDICTION WEEK 3
 
     my_prediction3 = pdt.Prediction(df)
     df3 = my_prediction3.mean_std()
@@ -107,7 +107,7 @@ def main():
     df3.Combined = pd.Categorical(df3.Combined, categories)
     df3=df3.sort_values('Combined', ignore_index=True)
 
-    ######### PREDICTION 4
+    ######### PREDICTION WEEK 4
 
     my_prediction4 = pdt.Prediction(df)
     df4 = my_prediction4.mean_std()
@@ -402,25 +402,75 @@ def main():
                print("An appointment could not be scheduled for this call. Wait for next month's schedule to be released.")
             return penalties
 
+        #### AGENDA FILLING PER WEEK
+        
+        idx_initial_call_schedule_1 = {'Monday' : 1, 'Tuesday': 2, 'Wednesday':3, 'Thursday':4,'Friday':5,'Saturday':6,'Sunday':7
+            } # for Monday calls on week 1, idx is 1 because we want to start schedulling calls from the day after the call 
+
+        idx_initial_call_schedule_2 = {'Monday' : 8, 'Tuesday': 9, 'Wednesday':10, 'Thursday':11,'Friday':12,'Saturday':13,'Sunday':14
+            } # for Monday calls on week 2, idx is 8 because we want to start schedulling calls from the day after the call
+
+        idx_initial_call_schedule_3 = {'Monday' : 15, 'Tuesday': 16, 'Wednesday':17, 'Thursday':18,'Friday':19,'Saturday':20,'Sunday':21
+            } # for Monday calls on week 3, idx is 15 because we want to start schedulling calls from the day after the call
+
+        idx_initial_call_schedule_4 = {'Monday' : 22, 'Tuesday': 23, 'Wednesday':24, 'Thursday':25,'Friday':26,'Saturday':27,'Sunday':28
+            } # for Monday calls on week 4, idx is 22 because we want to start schedulling calls from the day after the call
+
         ### AGENDA FILLING FOR WEEK 1
 
         ## TODO - REFACTORING - not quite right yet
-        # list_weeks_simulated_calls = [weekdays_simulated_calls, weekdays_simulated_calls_2, weekdays_simulated_calls_3, weekdays_simulated_calls_4]
-        # total_penalties = 0
-        # def agenda_filler_per_week(weekly_dic_simulated_calls, idx_initial_call_sch,reserved_slots_dict, agenda, avail_slots):
-        #     """"""
-        #     for d in weekly_dic_simulated_calls:
-        #         for call in weekly_dic_simulated_calls[d]:  
-        #             idx = idx_initial_call_sch[d] ####
+        
+        # list_weeks_simulated_calls = [weekdays_simulated_calls_1, weekdays_simulated_calls_2, weekdays_simulated_calls_3, weekdays_simulated_calls_4]
+        # list_idx_initial_call_schedule = [idx_initial_call_schedule_1, idx_initial_call_schedule_2, idx_initial_call_schedule_3, idx_initial_call_schedule_4]
+        
+        # def agenda_filler_per_week(week, idx_initial_call_sch, reserved_slots_dict, agenda, avail_slots):
+        #     """Fills the agenda for a given week and returns penalties for that week"""
+        #     week_penalties = 0
+        #     for d in week:
+        #         for call in week[d]:   
+        #             idx = idx_initial_call_sch[d] 
         #             call_day_idx = idx_initial_call_sch[d] -1
         #             penalties_for_this_call = agenda_filler(call, idx, call_day_idx, reserved_slots_dict, agenda, avail_slots)
-        #             total_penalties = total_penalties + penalties_for_this_call
-        #
+        #             #total_penalties = total_penalties + penalties_for_this_call
+        #             week_penalties = week_penalties + penalties_for_this_call
+        #             return week_penalties            
+        
+        ##
+        # total_penalties = 0
+        # week_idx = 0
         # for week in list_weeks_simulated_calls:
-        #     agenda_filler_per_week()
+        #     print(week)
+        #     print('This is the week index: ', week_idx)
+        #     input("press any key to CLOSE")  
+        #     idx_initial_call_sch =  list_idx_initial_call_schedule[week_idx]
+        #     print('This is the idx_initial_calls: ', idx_initial_call_sch)
+        #     input("press any key to CLOSE") 
+        #     this_week_penalties = agenda_filler_per_week(week, idx_initial_call_sch, reserved_slots_dict, agenda, avail_slots)
+        #     total_penalties = total_penalties + this_week_penalties
+        #     week_idx +=1
+        #     print('These are the penalties for this week: ', this_week_penalties)
+        #     input("press any key to CLOSE") 
+        ##
+
+        # total_penalties = 0
+        # week_idx = 0
+        # for week in list_weeks_simulated_calls:
+        #     idx_initial_call_sch =  list_idx_initial_call_schedule[week_idx]
+        #     this_week_penalties = agenda_filler_per_week(week, idx_initial_call_sch, reserved_slots_dict, agenda, avail_slots)
+        #     total_penalties = total_penalties + this_week_penalties
+        #     week_idx +=1
+        #     print('These are the penalties for this week: ', this_week_penalties)
+        #     input("press any key to CLOSE")
+        
+        # print('These are the total penalties: ', total_penalties)
+        # input("press any key to CLOSE") 
     
-        idx_initial_call_schedule_1 = {'Monday' : 1, 'Tuesday': 2, 'Wednesday':3, 'Thursday':4,'Friday':5,'Saturday':6,'Sunday':7
-            } # for Monday calls, idx is 1 because we want to start schedulling calls from the day after the call 
+############
+
+        ### AGENDA FILLING FOR WEEK 1        
+        
+        # idx_initial_call_schedule_1 = {'Monday' : 1, 'Tuesday': 2, 'Wednesday':3, 'Thursday':4,'Friday':5,'Saturday':6,'Sunday':7
+        #     } # for Monday calls, idx is 1 because we want to start schedulling calls from the day after the call 
 
         total_penalties = 0
         for d in weekdays_simulated_calls_1: # for each key (day of week), e.g. d = Monday
@@ -434,8 +484,8 @@ def main():
 
         ### AGENDA FILLING FOR WEEK 2
         
-        idx_initial_call_schedule_2 = {'Monday' : 8, 'Tuesday': 9, 'Wednesday':10, 'Thursday':11,'Friday':12,'Saturday':13,'Sunday':14
-            } # for Monday calls, idx is 8 because we want to start schedulling calls from the day after the call
+        # idx_initial_call_schedule_2 = {'Monday' : 8, 'Tuesday': 9, 'Wednesday':10, 'Thursday':11,'Friday':12,'Saturday':13,'Sunday':14
+        #     } # for Monday calls, idx is 8 because we want to start schedulling calls from the day after the call
 
         for d in weekdays_simulated_calls_2:
             for call in weekdays_simulated_calls_2[d]:  
@@ -446,8 +496,8 @@ def main():
 
         ### AGENDA FILLING FOR WEEK 3
         
-        idx_initial_call_schedule_3 = {'Monday' : 15, 'Tuesday': 16, 'Wednesday':17, 'Thursday':18,'Friday':19,'Saturday':20,'Sunday':21
-            } # for Monday calls, idx is 15 because we want to start schedulling calls from the day after the call
+        # idx_initial_call_schedule_3 = {'Monday' : 15, 'Tuesday': 16, 'Wednesday':17, 'Thursday':18,'Friday':19,'Saturday':20,'Sunday':21
+        #     } # for Monday calls, idx is 15 because we want to start schedulling calls from the day after the call
 
         for d in weekdays_simulated_calls_3:
             for call in weekdays_simulated_calls_3[d]:  
@@ -458,8 +508,8 @@ def main():
 
         ### AGENDA FILLING FOR WEEK 4
         
-        idx_initial_call_schedule_4 = {'Monday' : 22, 'Tuesday': 23, 'Wednesday':24, 'Thursday':25,'Friday':26,'Saturday':27,'Sunday':28
-            } # for Monday calls, idx is 22 because we want to start schedulling calls from the day after the call
+        # idx_initial_call_schedule_4 = {'Monday' : 22, 'Tuesday': 23, 'Wednesday':24, 'Thursday':25,'Friday':26,'Saturday':27,'Sunday':28
+        #     } # for Monday calls, idx is 22 because we want to start schedulling calls from the day after the call
 
         for d in weekdays_simulated_calls_4:
             for call in weekdays_simulated_calls_4[d]:  
@@ -480,14 +530,17 @@ def main():
         print("These are the penalties incurred for this period: ", total_penalties, "\n")
     
         input("press any key to close")
-    
-    except:
+  
+    except AssertionError:
         print('Invalid date entered.')
         input('Press any key to try again')
        # print('Please, try again: the date entered must correspond to a Monday and have the following format YYYY-MM-DD') ## chequear que esa fecha corresponde con un lunes!
         main()
         #input('Press any key to try again')
-
+        
+    except Exception as ex:
+        print('Ha habido una excepcion: ', ex)
+        input('Press any key to close the programm')
 
 if __name__ == '__main__':
     main()
@@ -495,8 +548,7 @@ if __name__ == '__main__':
 ##################################################################################################################################
 ### My final notes
 
-## Convert this to 'main' module - refactor class Simulation() TODO
-## Add to Github repo    
+## Convert this to 'main' module - create and refactor class Simulation() TODO
 ## Predicci�n() - OJO, normal distribution with those std gives some negative numbers for predicted calls! - some reserved slots become a negative number!
 
 ##################################################################################################################################
