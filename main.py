@@ -53,7 +53,7 @@ def main():
     ######
 
     ### PHASE 2: DAILY CALL PREDICTION
-    ## Genera la clase: Predicción() which has a method to calculate the standard deviation and the mean, another to predict with that standard deviation and mean,
+    ## Genera la clase: Predicciï¿½n() which has a method to calculate the standard deviation and the mean, another to predict with that standard deviation and mean,
     ##  and you can even add a method that given a day returns the following seven.
 
     ## Step 1: We will count how many calls there are from each type of client on each date in the call history.
@@ -549,6 +549,6 @@ if __name__ == '__main__':
 ### My final notes
 
 ## Convert this to 'main' module - create and refactor class Simulation() TODO
-## Predicción() - OJO, normal distribution with those std gives some negative numbers for predicted calls! - some reserved slots become a negative number!
+## Predicciï¿½n() - OJO, normal distribution with those std gives some negative numbers for predicted calls! - some reserved slots become a negative number!
 
 ##################################################################################################################################
