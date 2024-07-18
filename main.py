@@ -416,108 +416,37 @@ def main():
         idx_initial_call_schedule_4 = {'Monday' : 22, 'Tuesday': 23, 'Wednesday':24, 'Thursday':25,'Friday':26,'Saturday':27,'Sunday':28
             } # for Monday calls on week 4, idx is 22 because we want to start schedulling calls from the day after the call
 
-        ### AGENDA FILLING FOR WEEK 1
+        ## TODO - REFACTORING - validar
+        
+        list_weeks_simulated_calls = [weekdays_simulated_calls_1, weekdays_simulated_calls_2, weekdays_simulated_calls_3, weekdays_simulated_calls_4]
+        list_idx_initial_call_schedule = [idx_initial_call_schedule_1, idx_initial_call_schedule_2, idx_initial_call_schedule_3, idx_initial_call_schedule_4]
+        
+        def agenda_filler_per_week(week, idx_initial_call_sch, reserved_slots_dict, agenda, avail_slots):
+            """Fills the agenda for a given week and returns penalties for that week"""
+            week_penalties = 0
+                    
+            for d in week:
+                for call in week[d]:
+                    idx = idx_initial_call_sch[d] 
+                    call_day_idx = idx_initial_call_sch[d] -1
+                    penalties_for_this_call = agenda_filler(call, idx, call_day_idx, reserved_slots_dict, agenda, avail_slots)
+                    week_penalties = week_penalties + penalties_for_this_call   
+            return week_penalties         
 
-        ## TODO - REFACTORING - not quite right yet
-        
-        # list_weeks_simulated_calls = [weekdays_simulated_calls_1, weekdays_simulated_calls_2, weekdays_simulated_calls_3, weekdays_simulated_calls_4]
-        # list_idx_initial_call_schedule = [idx_initial_call_schedule_1, idx_initial_call_schedule_2, idx_initial_call_schedule_3, idx_initial_call_schedule_4]
-        
-        # def agenda_filler_per_week(week, idx_initial_call_sch, reserved_slots_dict, agenda, avail_slots):
-        #     """Fills the agenda for a given week and returns penalties for that week"""
-        #     week_penalties = 0
-        #     for d in week:
-        #         for call in week[d]:   
-        #             idx = idx_initial_call_sch[d] 
-        #             call_day_idx = idx_initial_call_sch[d] -1
-        #             penalties_for_this_call = agenda_filler(call, idx, call_day_idx, reserved_slots_dict, agenda, avail_slots)
-        #             #total_penalties = total_penalties + penalties_for_this_call
-        #             week_penalties = week_penalties + penalties_for_this_call
-        #             return week_penalties            
-        
-        ##
-        # total_penalties = 0
-        # week_idx = 0
-        # for week in list_weeks_simulated_calls:
-        #     print(week)
-        #     print('This is the week index: ', week_idx)
-        #     input("press any key to CLOSE")  
-        #     idx_initial_call_sch =  list_idx_initial_call_schedule[week_idx]
-        #     print('This is the idx_initial_calls: ', idx_initial_call_sch)
-        #     input("press any key to CLOSE") 
-        #     this_week_penalties = agenda_filler_per_week(week, idx_initial_call_sch, reserved_slots_dict, agenda, avail_slots)
-        #     total_penalties = total_penalties + this_week_penalties
-        #     week_idx +=1
+        total_penalties = 0
+        week_idx = 0
+        for week in list_weeks_simulated_calls:
+            idx_initial_call_sch =  list_idx_initial_call_schedule[week_idx]            
+            this_week_penalties = agenda_filler_per_week(week, idx_initial_call_sch, reserved_slots_dict, agenda, avail_slots)
+            total_penalties = total_penalties + this_week_penalties
+            week_idx +=1
+            
         #     print('These are the penalties for this week: ', this_week_penalties)
         #     input("press any key to CLOSE") 
-        ##
-
-        # total_penalties = 0
-        # week_idx = 0
-        # for week in list_weeks_simulated_calls:
-        #     idx_initial_call_sch =  list_idx_initial_call_schedule[week_idx]
-        #     this_week_penalties = agenda_filler_per_week(week, idx_initial_call_sch, reserved_slots_dict, agenda, avail_slots)
-        #     total_penalties = total_penalties + this_week_penalties
-        #     week_idx +=1
-        #     print('These are the penalties for this week: ', this_week_penalties)
-        #     input("press any key to CLOSE")
         
         # print('These are the total penalties: ', total_penalties)
         # input("press any key to CLOSE") 
     
-############
-
-        ### AGENDA FILLING FOR WEEK 1        
-        
-        # idx_initial_call_schedule_1 = {'Monday' : 1, 'Tuesday': 2, 'Wednesday':3, 'Thursday':4,'Friday':5,'Saturday':6,'Sunday':7
-        #     } # for Monday calls, idx is 1 because we want to start schedulling calls from the day after the call 
-
-        total_penalties = 0
-        for d in weekdays_simulated_calls_1: # for each key (day of week), e.g. d = Monday
-            for call in weekdays_simulated_calls_1[d]: # for each simulated call # for call in weekdays_simulated_calls['Tuesday']  
-                idx = idx_initial_call_schedule_1[d]  # index of date after the call: means the second ele of reserved_slots_dict (for a call on Monday, the date would be that of the first Tuesday on the dict)
-                call_day_idx = idx_initial_call_schedule_1[d] -1 # index of the date of the call
-                #print("This is the call day: ", call_day_idx)
-                #agenda_filler(call, idx, call_day_idx reserved_slots_dict, agenda, avail_slots)
-                penalties_for_this_call = agenda_filler(call, idx, call_day_idx, reserved_slots_dict, agenda, avail_slots)
-                total_penalties = total_penalties + penalties_for_this_call
-
-        ### AGENDA FILLING FOR WEEK 2
-        
-        # idx_initial_call_schedule_2 = {'Monday' : 8, 'Tuesday': 9, 'Wednesday':10, 'Thursday':11,'Friday':12,'Saturday':13,'Sunday':14
-        #     } # for Monday calls, idx is 8 because we want to start schedulling calls from the day after the call
-
-        for d in weekdays_simulated_calls_2:
-            for call in weekdays_simulated_calls_2[d]:  
-                idx = idx_initial_call_schedule_2[d] ####
-                call_day_idx = idx_initial_call_schedule_2[d] -1
-                penalties_for_this_call = agenda_filler(call, idx, call_day_idx, reserved_slots_dict, agenda, avail_slots)
-                total_penalties = total_penalties + penalties_for_this_call
-
-        ### AGENDA FILLING FOR WEEK 3
-        
-        # idx_initial_call_schedule_3 = {'Monday' : 15, 'Tuesday': 16, 'Wednesday':17, 'Thursday':18,'Friday':19,'Saturday':20,'Sunday':21
-        #     } # for Monday calls, idx is 15 because we want to start schedulling calls from the day after the call
-
-        for d in weekdays_simulated_calls_3:
-            for call in weekdays_simulated_calls_3[d]:  
-                idx = idx_initial_call_schedule_3[d] ####
-                call_day_idx = idx_initial_call_schedule_3[d] -1
-                penalties_for_this_call = agenda_filler(call, idx, call_day_idx, reserved_slots_dict, agenda, avail_slots)
-                total_penalties = total_penalties + penalties_for_this_call
-
-        ### AGENDA FILLING FOR WEEK 4
-        
-        # idx_initial_call_schedule_4 = {'Monday' : 22, 'Tuesday': 23, 'Wednesday':24, 'Thursday':25,'Friday':26,'Saturday':27,'Sunday':28
-        #     } # for Monday calls, idx is 22 because we want to start schedulling calls from the day after the call
-
-        for d in weekdays_simulated_calls_4:
-            for call in weekdays_simulated_calls_4[d]:  
-                idx = idx_initial_call_schedule_4[d] ####
-                call_day_idx = idx_initial_call_schedule_4[d] -1
-                penalties_for_this_call = agenda_filler(call, idx, call_day_idx, reserved_slots_dict, agenda, avail_slots)
-                total_penalties = total_penalties + penalties_for_this_call
-      
         ### Show filled agenda as a df structure
 
         df_final_output = pd.DataFrame(agenda)
