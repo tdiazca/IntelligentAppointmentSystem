@@ -14,9 +14,6 @@
 ##  We will find the mean and standard deviation for each type of client and for each day of the week.
 
 
-## Predicción() - OJO, normal distribution with those std gives some negative numbers for predicted calls! - some reserved slots become a negative number!
-
-
 #from datetime import timedelta
 import numpy as np
 import pandas as pd
