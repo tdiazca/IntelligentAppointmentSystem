@@ -121,7 +121,6 @@ def main():
     df4.Combined = pd.Categorical(df4.Combined, categories)
     df4=df4.sort_values('Combined', ignore_index=True)
 
-
     #########
 
     try:
@@ -291,6 +290,8 @@ def main():
         df_call_history['Weekday'] = df_call_history['Fec. Alta'] # df_call_history['Weekday'] = df.loc[:,'Fec. Alta']
         df_call_history['Weekday'] = df_call_history['Weekday'].apply(lambda x: x.strftime('%A'))
 
+        #### CALL HISTORY COUNTER
+        
         call_history_dict = {'Monday':{},'Tuesday':{},'Wednesday':{},'Thursday':{},'Friday':{},'Saturday':{},'Sunday':{}}
 
         def call_history_counter(a, b, call_history_dict):
@@ -415,8 +416,6 @@ def main():
 
         idx_initial_call_schedule_4 = {'Monday' : 22, 'Tuesday': 23, 'Wednesday':24, 'Thursday':25,'Friday':26,'Saturday':27,'Sunday':28
             } # for Monday calls on week 4, idx is 22 because we want to start schedulling calls from the day after the call
-
-        ## TODO - REFACTORING - validar
         
         list_weeks_simulated_calls = [weekdays_simulated_calls_1, weekdays_simulated_calls_2, weekdays_simulated_calls_3, weekdays_simulated_calls_4]
         list_idx_initial_call_schedule = [idx_initial_call_schedule_1, idx_initial_call_schedule_2, idx_initial_call_schedule_3, idx_initial_call_schedule_4]
@@ -478,6 +477,6 @@ if __name__ == '__main__':
 ### My final notes
 
 ## Convert this to 'main' module - create and refactor class Simulation() TODO
-## Predicci�n() - OJO, normal distribution with those std gives some negative numbers for predicted calls! - some reserved slots become a negative number!
+## Prediction() - OJO, normal distribution with those std gives some negative numbers for predicted calls! - some reserved slots become a negative number!
 
 ##################################################################################################################################
