@@ -25,8 +25,6 @@ def main():
     ### PHASE 1: CLASSIFICATION
     
     ## START CLASSIFICATION ##
-
-    values = ['P1','P2','P3']
     
     conditions = [
         (df['Facturación'] > float(4000)), #Facturación
