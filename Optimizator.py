@@ -122,9 +122,9 @@ en base a la prediccion generada previamente"""
                             # else:
                             #     print('no more slots available on this date')
 
-            else:
-                print('No slots available for that date, we will try the next available date')
-                input("press any key to close")
+            # else:
+            #     print('No slots available for that date, we will try the next available date')
+            #     input("press any key to close")
         else:
             print('We cannot schedule your apponitment yet, please call back in X days')
        
