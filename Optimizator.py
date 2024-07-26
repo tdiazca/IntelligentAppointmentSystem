@@ -10,9 +10,19 @@
 # ## Step1
 # # Calculate deadlines for expected calls per date and type of client 
 
-# Add limit date column and populate it (2d for P1, 3d for P2, 4d for P3)
-    # create a fx that according to value of ['Classification'] calculates date for limit date column; 
-    # apply it for each val of Classification
+    # Add limit date column and populate it (2d for P1, 3d for P2, 4d for P3)
+        # create a fx that according to value of ['Classification'] calculates date for limit date column; 
+        # apply it for each val of Classification
+
+# ## Step2
+# # Order calls in ascending order by deadline
+
+# ## Step3
+# # Define slot reservation agenda for 4 weeks/7days and 30 slots/day and fill it in:
+# # Agenda recommendation: Create a data structure for the entire month, which you can easily pass from one day to another when you encounter null availability.
+#     # use ordered call prediction
+#     # start by assigning the first avail slot the following day to the call and if none avail, the day after
+#     # cannot assign a call a slot for today
 
 import datetime
 from datetime import timedelta
@@ -24,11 +34,12 @@ en base a la prediccion generada previamente"""
 
     def __init__(self, monday_week1):
         """class constructor"""
-        self.monday_week1 = monday_week1
+        self.monday_week1 = monday_week1 # instance variables
 
     def calculate_limit_date(self,a,b):
         """Calculates limit date for appointment according to the category of the clients of the predicted calls
        and adds limit date column to dataframe"""
+       
         if a.item() == 'P1':
             limit_date = b.item().to_pydatetime() + timedelta(days=2)
         elif a.item() == 'P2':
@@ -39,6 +50,7 @@ en base a la prediccion generada previamente"""
 
     def empty_agenda_generator(self):
         """Generates the empty agenda for a month"""
+        
         start = datetime.datetime.strptime(self.monday_week1,'%Y-%m-%d')
         end = start + timedelta(days=30)
         month_dates = pd.date_range(start.strftime('%Y-%m-%d'), end.strftime('%Y-%m-%d'), freq='D')
@@ -52,6 +64,7 @@ en base a la prediccion generada previamente"""
     
     def avail_slots_dict(self):
         """"Generates a dictionary of available slots for a month with dates as keys and available slots as values"""
+        
         start = datetime.datetime.strptime(self.monday_week1,'%Y-%m-%d')
         end = start + timedelta(days=30)
         month_dates = pd.date_range(start.strftime('%Y-%m-%d'), end.strftime('%Y-%m-%d'), freq='D')
@@ -65,20 +78,50 @@ en base a la prediccion generada previamente"""
             ## debemos hacer predicciones para 4 semanas
 
     def reserved_slots_filler(self,a, b, c, reserved_slots_dict, avail_slots):
-        """Fills in the agenda with allocated slots per patient type and updates the available slots"""
+        """Fills in the agenda with allocated reserved slots per patient type and updates the available slots"""
+        
         appointment_date = a.item().strftime('%Y-%m-%d')
         if appointment_date in reserved_slots_dict.keys():
             if avail_slots[appointment_date] > 0:
-                if b.item() == 'P1':
-                    ### if avail_slots[appointment_date] >= c.item():
-                    reserved_slots_dict[appointment_date]['P1'] += c.item() #reserved_slots_empty[df['Date']]['P1'] + 1
-                    avail_slots[appointment_date] -= c.item()
+                if b.item() == 'P1': # b.item() es el tipo de cliente, c.item() es el n de llamadas para ese tipo de cliente
+                    if avail_slots[appointment_date] >= c.item(): ##
+                        reserved_slots_dict[appointment_date]['P1'] += c.item()
+                        avail_slots[appointment_date] -= c.item()
+                        
+                    else: ##
+                        for n in range(0, c.item()):
+                            if avail_slots[appointment_date] >= 1:
+                                avail_slots[appointment_date] -= 1
+                                reserved_slots_dict[appointment_date]['P1'] += 1
+                            # else:
+                            #     print('no more slots available on this date')
+                            
                 elif b.item() == 'P2':
-                    reserved_slots_dict[appointment_date]['P2'] = reserved_slots_dict[appointment_date]['P2'] + c.item()
-                    avail_slots[appointment_date] -= c.item()
+                    if avail_slots[appointment_date] >= c.item(): ##
+                        reserved_slots_dict[appointment_date]['P2'] = reserved_slots_dict[appointment_date]['P2'] + c.item()
+                        avail_slots[appointment_date] -= c.item()
+                        
+                    else: ##
+                        for n in range(0, c.item()):
+                            if avail_slots[appointment_date] >= 1:
+                                avail_slots[appointment_date] -= 1
+                                reserved_slots_dict[appointment_date]['P1'] += 1
+                            # else:
+                            #     print('no more slots available on this date')
+
                 elif b.item() == 'P3':
-                    reserved_slots_dict[appointment_date]['P3'] = reserved_slots_dict[appointment_date]['P3'] + c.item()
-                    avail_slots[appointment_date] -= c.item()                
+                    if avail_slots[appointment_date] >= c.item(): ##
+                        reserved_slots_dict[appointment_date]['P3'] = reserved_slots_dict[appointment_date]['P3'] + c.item()
+                        avail_slots[appointment_date] -= c.item()
+                        
+                    else: ##
+                        for n in range(0, c.item()):
+                            if avail_slots[appointment_date] >= 1:
+                                avail_slots[appointment_date] -= 1
+                                reserved_slots_dict[appointment_date]['P1'] += 1
+                            # else:
+                            #     print('no more slots available on this date')
+
             else:
                 print('No slots available for that date, we will try the next available date')
                 input("press any key to close")
