@@ -1,12 +1,12 @@
 ### PHASE 2: DAILY CALL PREDICTION
-## Genera la clase: Predicci�n() which has a method to calculate the standard deviation and the mean, another to predict with that standard deviation and mean,
+## Genera la clase: Prediction() which has a method to calculate the standard deviation and the mean, another to predict with that standard deviation and mean,
 ##  and you can even add a method that given a day returns the following seven.
 
 ## Step 1: We will count how many calls there are from each type of client on each date in the call history.
 ##  We will find the mean and standard deviation for each type of client and for each day of the week.
 
 ### PHASE 2: DAILY CALL PREDICTION
-## Genera la clase: Predicci�n() which has a method to calculate the standard deviation and the mean, another to predict with that standard deviation and mean,
+## Genera la clase: Prediction() which has a method to calculate the standard deviation and the mean, another to predict with that standard deviation and mean,
 ##  and you can even add a method that given a day returns the following seven.
 
 #from datetime import timedelta

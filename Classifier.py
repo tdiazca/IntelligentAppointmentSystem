@@ -1,5 +1,5 @@
-### PHASE 1: Clasificacion() with a method clasifica() that given a dataset classifies it
-# Create the class Clasificacion() with a method clasifica() that given a dataset classifies it
+### PHASE 1: Classifier() with a method clasificacion() that given a dataset classifies it
+# Create the class Classifier() with a method clasificacion() that given a dataset classifies it
 
 import numpy as np
 
