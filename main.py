@@ -3,6 +3,7 @@
 
 import datetime
 from datetime import timedelta
+from doctest import OutputChecker
 
 import pandas as pd
 #import numpy as np
@@ -357,16 +358,254 @@ if __name__ == '__main__':
     main()
 
 ##################################################################################################################################
-#Ejemplo outputs
+# ##Ejemplo outputs
    
-# Simulated calls per weekday
-# {'Monday': array(['P3', 'P3', 'P3', 'P1', 'P3', 'P1', 'P3', 'P3', 'P1', 'P2', 'P1',
-#        'P1', 'P1', 'P1', 'P3'], dtype='<U2'), 'Tuesday': array(['P1', 'P3', 'P3', 'P2', 'P2', 'P3', 'P2', 'P2', 'P1', 'P2', 'P3',
-#        'P3', 'P1', 'P2', 'P2', 'P3', 'P3', 'P2', 'P1'],...
+# # Simulated calls per weekday
+# # {'Monday': array(['P3', 'P3', 'P3', 'P1', 'P3', 'P1', 'P3', 'P3', 'P1', 'P2', 'P1',
+# #        'P1', 'P1', 'P1', 'P3'], dtype='<U2'), 'Tuesday': array(['P1', 'P3', 'P3', 'P2', 'P2', 'P3', 'P2', 'P2', 'P1', 'P2', 'P3',
+# #        'P3', 'P1', 'P2', 'P2', 'P3', 'P3', 'P2', 'P1'],...
 
-# reserved slots dic
-# {'2024-06-17': {'P1': 0, 'P2': 0, 'P3': 0}, '2024-06-18': {'P1': 4, 'P2': 6, 'P3': 6},... 
+# # reserved slots dic
+# # {'2024-06-17': {'P1': 0, 'P2': 0, 'P3': 0}, '2024-06-18': {'P1': 4, 'P2': 6, 'P3': 6},... 
 
-# agenda
-# {'2024-06-17': {'P1': 0, 'P2': 0, 'P3': 0}, '2024-06-18': {'P1': 0, 'P2': 0, 'P3': 0}, ...
+# # agenda
+# # {'2024-06-17': {'P1': 0, 'P2': 0, 'P3': 0}, '2024-06-18': {'P1': 0, 'P2': 0, 'P3': 0}, ...
 ##################################################################################################################################
+
+# ## EXAMPLE main() OUTPUT
+    
+# # Please, enter a date for which the Prediction should be created. This must must correspond to a Monday and have the following format YYYY-MM-DD: 2024-06-17
+# # Dataframe for week 1 before returning week
+# #    Classification Day of the week     Calls                Combined
+# #                                        mean       std
+# # 0              P1          Monday  4.200000  5.094660     P1_Monday
+# # 1              P2          Monday  4.666667  6.889179     P2_Monday
+# # 2              P3          Monday  5.317422  8.651241     P3_Monday
+# # 3              P1         Tuesday  3.600000  5.501515    P1_Tuesday
+# # 4              P2         Tuesday  4.743243  6.886677    P2_Tuesday
+# # 5              P3         Tuesday  5.736077  9.158294    P3_Tuesday
+# # 6              P1       Wednesday  4.500000  5.681354  P1_Wednesday
+# # 7              P2       Wednesday  5.013889  7.172901  P2_Wednesday
+# # 8              P3       Wednesday  5.464891  8.829664  P3_Wednesday
+# # 9              P1        Thursday  4.000000  7.094599   P1_Thursday
+# # 10             P2        Thursday  4.688312  7.178659   P2_Thursday
+# # 11             P3        Thursday  5.721805  8.958323   P3_Thursday
+# # 12             P1          Friday  3.900000  5.782156     P1_Friday
+# # 13             P2          Friday  4.573770  6.206070     P2_Friday
+# # 14             P3          Friday  5.142473  7.973245     P3_Friday
+# # 15             P1        Saturday  1.666667  1.154701   P1_Saturday
+# # 16             P2        Saturday  1.153846  0.375534   P2_Saturday
+# # 17             P3        Saturday  1.630952  1.588966   P3_Saturday
+# # 18             P1          Sunday  1.000000  0.000000     P1_Sunday
+# # 19             P2          Sunday  2.071429  1.384768     P2_Sunday
+# # 20             P3          Sunday  1.702970  2.156592     P3_Sunday
+# # press key to continue
+    
+# # C:\Users\teresa.diaz.calvo\source\repos\trainingpython\IntelligentAppointmentSystem\Prediction.py:36: FutureWarning: Non-integer 'periods' in pd.date_range, pd.timedelta_range, pd.period_range, and pd.interval_range are deprecated and will raise in a future version.
+# #   s_dates = pd.date_range(start=initial_date, periods=len(df)/3, freq='D')
+    
+# # Dataframe for week 1 with dates
+# #    Classification Day of the week     Calls                Combined       Date
+# #                                        mean       std
+# # 0              P1          Monday  4.200000  5.094660     P1_Monday 2024-06-17
+# # 1              P2          Monday  4.666667  6.889179     P2_Monday 2024-06-17
+# # 2              P3          Monday  5.317422  8.651241     P3_Monday 2024-06-17
+# # 3              P1         Tuesday  3.600000  5.501515    P1_Tuesday 2024-06-18
+# # 4              P2         Tuesday  4.743243  6.886677    P2_Tuesday 2024-06-18
+# # 5              P3         Tuesday  5.736077  9.158294    P3_Tuesday 2024-06-18
+# # 6              P1       Wednesday  4.500000  5.681354  P1_Wednesday 2024-06-19
+# # 7              P2       Wednesday  5.013889  7.172901  P2_Wednesday 2024-06-19
+# # 8              P3       Wednesday  5.464891  8.829664  P3_Wednesday 2024-06-19
+# # 9              P1        Thursday  4.000000  7.094599   P1_Thursday 2024-06-20
+# # 10             P2        Thursday  4.688312  7.178659   P2_Thursday 2024-06-20
+# # 11             P3        Thursday  5.721805  8.958323   P3_Thursday 2024-06-20
+# # 12             P1          Friday  3.900000  5.782156     P1_Friday 2024-06-21
+# # 13             P2          Friday  4.573770  6.206070     P2_Friday 2024-06-21
+# # 14             P3          Friday  5.142473  7.973245     P3_Friday 2024-06-21
+# # 15             P1        Saturday  1.666667  1.154701   P1_Saturday 2024-06-22
+# # 16             P2        Saturday  1.153846  0.375534   P2_Saturday 2024-06-22
+# # 17             P3        Saturday  1.630952  1.588966   P3_Saturday 2024-06-22
+# # 18             P1          Sunday  1.000000  0.000000     P1_Sunday 2024-06-23
+# # 19             P2          Sunday  2.071429  1.384768     P2_Sunday 2024-06-23
+# # 20             P3          Sunday  1.702970  2.156592     P3_Sunday 2024-06-23
+# # press any key to continue
+
+# # These are the predicted calls for week 1
+# #    Classification Day of the week       Date NumCalls (Normal dist.)
+
+# # 0              P1          Monday 2024-06-17                       9
+# # 1              P2          Monday 2024-06-17                       6
+# # 2              P3          Monday 2024-06-17                      14
+# # 3              P1         Tuesday 2024-06-18                       0
+# # 4              P2         Tuesday 2024-06-18                       0
+# # 5              P3         Tuesday 2024-06-18                       5
+# # 6              P1       Wednesday 2024-06-19                       6
+# # 7              P2       Wednesday 2024-06-19                      17
+# # 8              P3       Wednesday 2024-06-19                      14
+# # 9              P1        Thursday 2024-06-20                       5
+# # 10             P2        Thursday 2024-06-20                       0
+# # 11             P3        Thursday 2024-06-20                      11
+# # 12             P1          Friday 2024-06-21                       8
+# # 13             P2          Friday 2024-06-21                       2
+# # 14             P3          Friday 2024-06-21                       0
+# # 15             P1        Saturday 2024-06-22                       0
+# # 16             P2        Saturday 2024-06-22                       0
+# # 17             P3        Saturday 2024-06-22                       0
+# # 18             P1          Sunday 2024-06-23                       1
+# # 19             P2          Sunday 2024-06-23                       1
+# # 20             P3          Sunday 2024-06-23                       0
+# # press any key to continue
+
+# # These are the predicted calls for week 1 with limit dates for appointments.
+# #    Classification Day of the week       Date NumCalls (Normal dist.) limit date
+
+# # 0              P1          Monday 2024-06-17                       9 2024-06-19
+# # 1              P2          Monday 2024-06-17                       6 2024-06-20
+# # 2              P3          Monday 2024-06-17                      14 2024-06-21
+# # 3              P1         Tuesday 2024-06-18                       0 2024-06-20
+# # 4              P2         Tuesday 2024-06-18                       0 2024-06-21
+# # 5              P3         Tuesday 2024-06-18                       5 2024-06-22
+# # 6              P1       Wednesday 2024-06-19                       6 2024-06-21
+# # 7              P2       Wednesday 2024-06-19                      17 2024-06-22
+# # 8              P3       Wednesday 2024-06-19                      14 2024-06-23
+# # 9              P1        Thursday 2024-06-20                       5 2024-06-22
+# # 10             P2        Thursday 2024-06-20                       0 2024-06-23
+# # 11             P3        Thursday 2024-06-20                      11 2024-06-24
+# # 12             P1          Friday 2024-06-21                       8 2024-06-23
+# # 13             P2          Friday 2024-06-21                       2 2024-06-24
+# # 14             P3          Friday 2024-06-21                       0 2024-06-25
+# # 15             P1        Saturday 2024-06-22                       0 2024-06-24
+# # 16             P2        Saturday 2024-06-22                       0 2024-06-25
+# # 17             P3        Saturday 2024-06-22                       0 2024-06-26
+# # 18             P1          Sunday 2024-06-23                       1 2024-06-25
+# # 19             P2          Sunday 2024-06-23                       1 2024-06-26
+# # 20             P3          Sunday 2024-06-23                       0 2024-06-27
+# # press any key to continue
+    
+# # These are the predicted calls for week 1 with limit dates for appointments in ascending order.
+# #    Classification Day of the week       Date NumCalls (Normal dist.) limit date
+
+# # 0              P1          Monday 2024-06-17                       9 2024-06-19
+# # 1              P2          Monday 2024-06-17                       6 2024-06-20
+# # 2              P1         Tuesday 2024-06-18                       0 2024-06-20
+# # 3              P3          Monday 2024-06-17                      14 2024-06-21
+# # 4              P2         Tuesday 2024-06-18                       0 2024-06-21
+# # 5              P1       Wednesday 2024-06-19                       6 2024-06-21
+# # 6              P3         Tuesday 2024-06-18                       5 2024-06-22
+# # 7              P2       Wednesday 2024-06-19                      17 2024-06-22
+# # 8              P1        Thursday 2024-06-20                       5 2024-06-22
+# # 9              P1          Friday 2024-06-21                       8 2024-06-23
+# # 10             P2        Thursday 2024-06-20                       0 2024-06-23
+# # 11             P3       Wednesday 2024-06-19                      14 2024-06-23
+# # 12             P3        Thursday 2024-06-20                      11 2024-06-24
+# # 13             P2          Friday 2024-06-21                       2 2024-06-24
+# # 14             P1        Saturday 2024-06-22                       0 2024-06-24
+# # 15             P3          Friday 2024-06-21                       0 2024-06-25
+# # 16             P2        Saturday 2024-06-22                       0 2024-06-25
+# # 17             P1          Sunday 2024-06-23                       1 2024-06-25
+# # 18             P3        Saturday 2024-06-22                       0 2024-06-26
+# # 19             P2          Sunday 2024-06-23                       1 2024-06-26
+# # 20             P3          Sunday 2024-06-23                       0 2024-06-27
+# # press any key to continue
+    
+# # These are the predicted calls for week 1 with first valid date for an appointment per call.
+# #    Classification Day of the week  ... limit date Appointment date
+# #                                    ...
+# # 0              P1          Monday  ... 2024-06-19       2024-06-18
+# # 1              P2          Monday  ... 2024-06-20       2024-06-18
+# # 2              P1         Tuesday  ... 2024-06-20       2024-06-19
+# # 3              P3          Monday  ... 2024-06-21       2024-06-18
+# # 4              P2         Tuesday  ... 2024-06-21       2024-06-19
+# # 5              P1       Wednesday  ... 2024-06-21       2024-06-20
+# # 6              P3         Tuesday  ... 2024-06-22       2024-06-19
+# # 7              P2       Wednesday  ... 2024-06-22       2024-06-20
+# # 8              P1        Thursday  ... 2024-06-22       2024-06-21
+# # 9              P1          Friday  ... 2024-06-23       2024-06-22
+# # 10             P2        Thursday  ... 2024-06-23       2024-06-21
+# # 11             P3       Wednesday  ... 2024-06-23       2024-06-20
+# # 12             P3        Thursday  ... 2024-06-24       2024-06-21
+# # 13             P2          Friday  ... 2024-06-24       2024-06-22
+# # 14             P1        Saturday  ... 2024-06-24       2024-06-23
+# # 15             P3          Friday  ... 2024-06-25       2024-06-22
+# # 16             P2        Saturday  ... 2024-06-25       2024-06-23
+# # 17             P1          Sunday  ... 2024-06-25       2024-06-24
+# # 18             P3        Saturday  ... 2024-06-26       2024-06-23
+# # 19             P2          Sunday  ... 2024-06-26       2024-06-24
+# # 20             P3          Sunday  ... 2024-06-27       2024-06-24
+
+# # [21 rows x 6 columns]
+# # press any key to continue
+    
+# # This is the schedule of reserved slots and available slots for the month
+# #             P1  P2  P3  Slots available
+# # Date
+# # 2024-06-17   0   0   0               30
+# # 2024-06-18   9   6  14                1
+# # 2024-06-19   0   0   5               25
+# # 2024-06-20  13  17   0                0
+# # 2024-06-21   5   0  11               14
+# # 2024-06-22   8   2   0               20
+# # 2024-06-23   0   0   0               30
+# # 2024-06-24   1   1   0               28
+# # 2024-06-25   1  12   0               17
+# # 2024-06-26   0   9  11               10
+# # 2024-06-27   5   3   3               19
+# # 2024-06-28   1   0   3               26
+# # 2024-06-29   6   8   8                8
+# # 2024-06-30   1   1   1               27
+# # 2024-07-01   1   3   2               24
+# # 2024-07-02   5   8   9                8
+# # 2024-07-03   7   9   5                9
+# # 2024-07-04   3  12   0               15
+# # 2024-07-05   5   4  14                7
+# # 2024-07-06   0   0   8               22
+# # 2024-07-07   1   1   0               28
+# # 2024-07-08   1   1   0               28
+# # 2024-07-09   0   8   0               22
+# # 2024-07-10   4   0  12               14
+# # 2024-07-11   7   6   9                8
+# # 2024-07-12  25   5   0                0
+# # 2024-07-13   5   0   0               25
+# # 2024-07-14   1   1   2               26
+# # 2024-07-15   1   1   4               24
+# # 2024-07-16   0   0   0               30
+# # press any key to continue
+    
+# # Output of Phase 4 (monthly schedule - filled agenda)  (starting Monday :  2024-06-17
+# # This dataframe shows the scheduled calls per day and the slots that ramain available.
+# #             P1  P2  P3  Slots available
+# # Date
+# # 2024-06-17   0   0   0               30
+# # 2024-06-18   3   2   6                1
+# # 2024-06-19  12   9   9                0
+# # 2024-06-20   8   9   0                0
+# # 2024-06-21   7   9  14                0
+# # 2024-06-22   7   7   8                7
+# # 2024-06-23   3   2   2               23
+# # 2024-06-24   2   0   2               25
+# # 2024-06-25  10  10   3                5
+# # 2024-06-26   9   9  12                0
+# # 2024-06-27   2   3   4               18
+# # 2024-06-28   0   0   1               26
+# # 2024-06-29   4   1   0                8
+# # 2024-06-30   2   3   0               24
+# # 2024-07-01   1   0   1               24
+# # 2024-07-02   9  11  10                0
+# # 2024-07-03   4  11   8                4
+# # 2024-07-04   7  11   8                3
+# # 2024-07-05  10   6  11                0
+# # 2024-07-06   5   9   5                8
+# # 2024-07-07   1   6   0               23
+# # 2024-07-08   0   1   1               27
+# # 2024-07-09   2   4   5               15
+# # 2024-07-10  10   8  12                0
+# # 2024-07-11  12   9   9                0
+# # 2024-07-12  17   5   0                0
+# # 2024-07-13   4  13  12                0
+# # 2024-07-14   3  14   8                5
+# # 2024-07-15   4   0   1               21
+# # 2024-07-16   0   0   0               30
+
+# # These are the penalties incurred for this period:  3
+
+# # press any key to close
